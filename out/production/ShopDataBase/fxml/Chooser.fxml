@@ -7,7 +7,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ChoiceBox layoutX="100.0" layoutY="200.0" prefWidth="150.0" />
-      <Label layoutX="100.0" layoutY="146.0" prefHeight="31.0" prefWidth="150.0" text="Label" />
+      <ChoiceBox fx:id="choiсeOfMode" layoutX="100.0" layoutY="200.0" prefWidth="150.0" />
+      <Label layoutX="60.0" layoutY="149.0" prefHeight="31.0" prefWidth="231.0" text="Выберите режим работы с бд" />
    </children>
 </Pane>

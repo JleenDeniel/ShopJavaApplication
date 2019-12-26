@@ -1,11 +1,13 @@
 package shopLogic;
 
 public class User {
-    private String email;
-    private String password;
-    private int accessLvl;
+    public static String email;
+    public static String password;
+    public static int accessLvl;
 
+    public User(){
 
+    }
     public User(String email, String password, int accessLvl) {
         this.email = email;
         this.password = password;

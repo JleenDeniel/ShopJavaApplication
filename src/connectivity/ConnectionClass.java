@@ -37,7 +37,7 @@ public class ConnectionClass {
         callableStatement.executeQuery();
     }
 
-    public void addToGoods(String GNAME, String GPRICE, String GVENDOR_CODE,
+    public ResultSet addToGoods(String GNAME, String GPRICE, String GVENDOR_CODE,
                            String GEXPIRE_DATE, String GPLACE, int GQUAINTITY, int GTYPE) throws SQLException {
         String sql = "{CALL ADDTOGOODS(?, ?, ?, ?, ?, ?, ?)}";
         CallableStatement callableStatement = connection.prepareCall(sql);
@@ -48,19 +48,20 @@ public class ConnectionClass {
         callableStatement.setString(5, GPLACE);
         callableStatement.setInt(6, GQUAINTITY);
         callableStatement.setInt(7, GTYPE);
-        callableStatement.executeQuery();
+        ResultSet res = callableStatement.executeQuery();
+        return res;
     }
-    public boolean login(String login, String password) throws SQLException {
+    // function returns the access level in case of lucky log in, -1 otherwise
+    public int login(String login, String password) throws SQLException {
         String sql = "{CALL loginToDb(?, ?)}";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, login);
         statement.setString(2, password);
         ResultSet res = statement.executeQuery();
         if(res.next()){
-           //todo currentUser.setEmail();
-            return true;
+            return res.getInt(3);
         }else {
-            return false;
+            return -1;
         }
     }
 
