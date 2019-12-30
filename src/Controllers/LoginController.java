@@ -11,11 +11,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import  javafx.scene.control.Button;
 import javafx.stage.Stage;
-import shopLogic.User;
+import org.json.simple.JSONObject;
 
 
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class LoginController {
 
@@ -34,7 +35,8 @@ public class LoginController {
         String login = loginField.getText();
         String password = passwordField.getText();
         ConnectionClass connection = new ConnectionClass();
-        if(connection.login(login, password) >= 0) {                // successful connection
+        int accessLvl = connection.login(login, password);
+        if(accessLvl >= 0) {                // successful connection
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
             stage.close();
@@ -43,10 +45,39 @@ public class LoginController {
             stage.show();
 
 
+            //  clearUserFile();
+
+            JSONObject object = new JSONObject();
+            object.put("name", loginField.getText());
+            object.put("accessLvl", accessLvl);
+            try(FileWriter userFile = new FileWriter("src/resources/user.json")){
+                userFile.write(object.toJSONString());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
         }else{
             statusLabel.setText("Такого аккаунта не существует!");
             passwordField.clear();
         }
     }
+
+    public void clearUserFile(){
+        try(FileReader reader = new FileReader("src/resources/user.json")){
+            Scanner scanner = new Scanner(reader);
+            String checkingStr = scanner.nextLine();
+            if(checkingStr.length() > 0){
+                FileWriter fwOb = new FileWriter("src/resources/user.json", false);
+                PrintWriter pwOb = new PrintWriter(fwOb, false);
+                pwOb.flush();
+                pwOb.close();
+                fwOb.close();
+            }
+        }catch(FileNotFoundException e){
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
