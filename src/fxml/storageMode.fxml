@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox fx:controller="Controllers.StorageModeController" prefHeight="690.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File" />
+        <Menu mnemonicParsing="false" text="Edit" />
+        <Menu mnemonicParsing="false" text="Help" />
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="627.0" prefWidth="980.0" VBox.vgrow="ALWAYS">
+      <children>
+        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+          <font>
+            <Font size="18.0" />
+          </font>
+        </Label>
+            <TableView fx:id="storageTable" layoutX="14.0" layoutY="92.0" prefHeight="409.0" prefWidth="808.0">
+              <columns>
+                <TableColumn fx:id="goodNameCol" prefWidth="150.0" text="Название товара" />
+                <TableColumn fx:id="goodPriceCol" minWidth="0.0" prefWidth="78.0" text="Цена, руб" />
+                  <TableColumn fx:id="expireDateCol" prefWidth="95.0" text="Срок годности" />
+                  <TableColumn fx:id="codeCol" prefWidth="122.0" text="Артикул" />
+                  <TableColumn fx:id="goodPlaceCol" prefWidth="147.0" text="Место" />
+                  <TableColumn fx:id="goodQuaintCol" prefWidth="112.0" text="Количество" />
+                  <TableColumn fx:id="goodTypeCol" prefWidth="109.0" text="Тип" />
+              </columns>
+            </TableView>
+            <Label layoutX="26.0" layoutY="7.0" prefHeight="72.0" prefWidth="288.0" text="Складской учет">
+               <font>
+                  <Font name="Segoe UI Bold" size="28.0" />
+               </font>
+            </Label>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

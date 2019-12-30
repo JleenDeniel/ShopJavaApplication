@@ -2,8 +2,12 @@
   <library name="mysql-connector-java-8.0.18">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/mysql-connector-java-8.0.18.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/json-simple-1.1.jar!/" />
     </CLASSES>
     <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/lib/javafx-sdk-11.0.2/bin" />
+    </NATIVE>
     <SOURCES />
   </library>
 </component>

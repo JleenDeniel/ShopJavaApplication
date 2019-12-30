@@ -58,7 +58,7 @@ public class ConnectionClass {
         statement.setString(1, login);
         statement.setString(2, password);
         ResultSet res = statement.executeQuery();
-        if(res.next()){
+        if(res.next()){   
             return res.getInt(3);
         }else {
             return -1;

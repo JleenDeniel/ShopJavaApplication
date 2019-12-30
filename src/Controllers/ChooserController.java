@@ -3,14 +3,9 @@ package Controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.layout.StackPane;
-import shopLogic.User;
 
-import javax.jws.soap.SOAPBinding;
-import java.io.IOException;
+import javafx.scene.control.ChoiceBox;
+
 
 public class ChooserController {
     @FXML

@@ -39,11 +39,25 @@ public class LoginController {
         if(accessLvl >= 0) {                // successful connection
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
-            stage.close();
-            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/Chooser.fxml")));
-            stage.setScene(scene);
-            stage.show();
 
+            switch (accessLvl){
+                case 1:{
+                    stage.close();
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/")));
+                }
+                case 2:{
+                    stage.close();
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/cashierMode.fxml")));
+                    stage.setScene(scene);
+                }
+
+
+                default:
+                    statusLabel.setText("В базе данных какое то чучело с неизвестным мне уровнем доступа");
+
+            }
+
+            stage.show();
 
             //  clearUserFile();
 

@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.Pane?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="191.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ChoiceBox fx:id="choiсeOfMode" layoutX="100.0" layoutY="200.0" prefWidth="150.0" />
-      <Label layoutX="60.0" layoutY="149.0" prefHeight="31.0" prefWidth="231.0" text="Выберите режим работы с бд" />
+      <ChoiceBox fx:id="choiсeOfMode" layoutX="94.0" layoutY="110.0" prefHeight="25.0" prefWidth="166.0">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor></ChoiceBox>
+      <Label alignment="CENTER" layoutX="61.0" layoutY="64.0" prefHeight="31.0" prefWidth="231.0" text="Выберите режим работы с бд" />
+      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="344.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Аккаунт">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Помощь">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </Pane>
