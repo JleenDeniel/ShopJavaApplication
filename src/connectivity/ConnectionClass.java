@@ -17,9 +17,10 @@ public class ConnectionClass {
         this.connection = DriverManager.getConnection(url, user, password);
     }
 
-    public void execQuery(String sql) throws SQLException {
+    public ResultSet execQuery(String sql) throws SQLException {
         Statement statement = this.connection.createStatement();
-        statement.executeUpdate(sql);
+        ResultSet res = statement.executeQuery(sql);
+        return res;
     }
 
     public void addToStaff(String SNAME, String SURNAME, String EMAIL, String SPOSITION, int SACCESS_LVL,

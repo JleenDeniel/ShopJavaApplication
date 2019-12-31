@@ -62,8 +62,10 @@ public class LoginController {
             //  clearUserFile();
 
             JSONObject object = new JSONObject();
-            object.put("name", loginField.getText());
+
             object.put("accessLvl", accessLvl);
+            object.put("name", loginField.getText());
+
             try(FileWriter userFile = new FileWriter("src/resources/user.json")){
                 userFile.write(object.toJSONString());
             } catch (FileNotFoundException e) {
