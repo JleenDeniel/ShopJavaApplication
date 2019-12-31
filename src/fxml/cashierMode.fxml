@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:controller="Controllers.CashierModeController" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.CashierModeController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -65,12 +65,14 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="summLabel" layoutX="446.0" layoutY="54.0" prefHeight="96.0" prefWidth="162.0">
+            <Label fx:id="sumLabel" layoutX="446.0" layoutY="54.0" prefHeight="96.0" prefWidth="162.0">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="findGoodByCodeBtn" onAction="#findGoodBtnClick" layoutX="21.0" layoutY="90.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="162.0" text="Найти товар" />
+            <Button fx:id="findGoodByCodeBtn" layoutX="21.0" layoutY="90.0" mnemonicParsing="false" onAction="#findGoodBtnClick" prefHeight="25.0" prefWidth="162.0" text="Найти товар" />
+            <Label fx:id="currentGood" layoutX="21.0" layoutY="142.0" prefHeight="33.0" prefWidth="162.0" text="Label" />
+            <Button fx:id="addToSum" layoutX="21.0" layoutY="175.0" mnemonicParsing="false" text="Button" />
       </children>
     </AnchorPane>
   </children>

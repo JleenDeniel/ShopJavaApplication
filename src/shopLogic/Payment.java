@@ -1,9 +1,12 @@
 package shopLogic;
 
+import java.util.ArrayList;
+
 public class Payment {
     private int idBuyer;
     private int idPayment;
-    private int[] arrayOfGoods;
+    private ArrayList arrayOfGoods;
+    private Integer currentSum;
 
     /*
     What should the program do to create a new Payment?
@@ -17,14 +20,30 @@ public class Payment {
 
     }
 
+    public Payment() {
+        idBuyer = 0;
+        idPayment = 0;
+        arrayOfGoods = new ArrayList();
+        currentSum = 0;
+    }
+
     public void setIdBuyer(int idBuyer){
         this.idBuyer = idBuyer;
     }
     public void setIdPayment(int idPayment){
         this.idPayment = idPayment;
     }
-    public void setArrayOfGoods(int[] arrayOfGoods){
+    public void setArrayOfGoods(ArrayList arrayOfGoods){
         this.arrayOfGoods = arrayOfGoods;
+    }
+
+    public Integer getCurrentSum(){
+        return this.currentSum;
+    }
+
+    public void addToArrayOfGoods(String name, Integer price){
+        this.arrayOfGoods.add(name);
+        this.currentSum += price;
     }
 
 

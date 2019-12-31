@@ -2,17 +2,16 @@ package Controllers;
 
 import connectivity.ConnectionClass;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import shopLogic.Payment;
+
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
 
 
 public class CashierModeController {
@@ -20,12 +19,18 @@ public class CashierModeController {
     private Button findGoodByCodeBtn;
     @FXML
     private TextField codeField;
+    @FXML
+    private Button addToSum;
+    @FXML
+    private Label currentGood, sumLabel;
 
 
     public void findGoodBtnClick(javafx.event.ActionEvent event){
         String code  = codeField.getText();
         int id = 0;
         String name = "";
+        Integer price = 0;
+        Payment payment = new Payment();
 //        Pane pane = new Pane();
 //        Label lbl = new javafx.scene.control.Label(code);
 //        pane.getChildren().addAll(lbl);
@@ -35,11 +40,21 @@ public class CashierModeController {
 //        stage.show();
         try{
             ConnectionClass connection = new ConnectionClass();
-            String sql = "select id_good, gname from goods where GVENDOR_CODE =" + code + ";";
+            String sql = "select id_good, gname, gprice from goods where GVENDOR_CODE =" + code + ";";
             ResultSet res = connection.execQuery(sql);
-            res.next();
+
+            if (res.next()){
             id = res.getInt(1);
             name = res.getString(2);
+            price = res.getInt(3);
+            currentGood.setText(name);
+            //payment.addToArrayOfGoods(name, price);
+            //sumLabel.setText(payment.getCurrentSum().toString());
+            }
+            else{
+                currentGood.setText("Товар с таким артикулом не найден!");
+            }
+
         }catch (SQLException e){
             e.printStackTrace();
         }
