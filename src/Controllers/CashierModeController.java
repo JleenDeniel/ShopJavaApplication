@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 public class CashierModeController {
@@ -21,7 +22,7 @@ public class CashierModeController {
     private int currentSum;
     private String cardnumber;
     private int idPayment;
-    //public ConnectionClass connection;
+
 
     public void setCardnumber(String cardnumber){
         this.cardnumber = cardnumber;
@@ -67,12 +68,16 @@ public class CashierModeController {
             name_good = res.getString(2);
             price = res.getInt(3);
 
-            makeTheNewReceipt();
+            //makeTheNewReceipt();
 
             String sqlId = "Select max(payment_id) from history_payments;";
             ResultSet resId = connection.execQuery(sqlId);
             resId.next();
-            setIdPayment(resId.getInt(1));
+             if(getIdPayment() == 0) {
+                 setIdPayment(1 + resId.getInt(1));
+                 makeTheNewReceipt();
+             }
+
             addToAssist(id_good, getIdPayment());
 
              addNewGood(name_good);
@@ -95,12 +100,17 @@ public class CashierModeController {
     }
 
     public void makePaymentBtn(javafx.event.ActionEvent event) throws SQLException {
-        //makeTheNewReceipt(Integer.parseInt(sumLabel.getText()), getCardnumber());
-        updateReceipt();
-        setCardnumber("0");
-        setIdPayment(0);
-        sumLabel.setText("");
-        receiptArea.clear();
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Optional<ButtonType> option = alert.showAndWait();
+
+        if(option.get() == ButtonType.OK){
+            updateReceipt();
+            setCardnumber("0");
+            setIdPayment(0);
+            sumLabel.setText("");
+            receiptArea.clear();
+        }
+
     }
 
     public void makeTheNewReceipt(int sum, String cardnumber) throws SQLException {
@@ -117,7 +127,14 @@ public class CashierModeController {
 
     public void updateReceipt() throws SQLException {
         ConnectionClass connection = new ConnectionClass();
-        String sql = "Update history_payments set price = " + this.currentSum + " where payment_id =" + idPayment +";";
+        String sql = "";
+        if(getCardnumber().equals("0")) {
+            sql = "Update history_payments set price = " + getCurrentSum() + " where payment_id =" + getIdPayment() + ";";
+        }
+        else {
+            sql = "Update history_payments set price = " + getCurrentSum() +
+                    ", cardnumber =" + getCardnumber() + " where payment_id =" + getIdPayment() + ";";
+        }
         connection.execUpdate(sql);
     }
 
