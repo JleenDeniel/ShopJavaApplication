@@ -46,6 +46,9 @@ public class CashierModeController {
     public Integer getCurrentSum(){
         return currentSum;
     }
+    public void setCurrentSum(int sum){
+        this.currentSum = sum;
+    }
     public void updateSum(int price){
         this.currentSum = this.currentSum + price;
     }
@@ -68,7 +71,6 @@ public class CashierModeController {
             name_good = res.getString(2);
             price = res.getInt(3);
 
-            //makeTheNewReceipt();
 
             String sqlId = "Select max(payment_id) from history_payments;";
             ResultSet resId = connection.execQuery(sqlId);
@@ -107,6 +109,7 @@ public class CashierModeController {
             updateReceipt();
             setCardnumber("0");
             setIdPayment(0);
+            setCurrentSum(0);
             sumLabel.setText("");
             receiptArea.clear();
         }
