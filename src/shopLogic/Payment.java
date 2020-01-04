@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Payment {
     private int idBuyer;
     private int idPayment;
-    private ArrayList arrayOfGoods;
+    private ArrayList<String> arrayOfGoods;
     private Integer currentSum;
 
     /*
@@ -23,7 +23,7 @@ public class Payment {
     public Payment() {
         idBuyer = 0;
         idPayment = 0;
-        arrayOfGoods = new ArrayList();
+        arrayOfGoods = new ArrayList<String>();
         currentSum = 0;
     }
 
@@ -42,8 +42,8 @@ public class Payment {
     }
 
     public void addToArrayOfGoods(String name, Integer price){
-        this.arrayOfGoods.add(name);
-        this.currentSum += price;
+        arrayOfGoods.add(name);
+        currentSum += price;
     }
 
 

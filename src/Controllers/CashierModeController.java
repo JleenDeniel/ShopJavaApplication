@@ -1,64 +1,138 @@
 package Controllers;
 
 import connectivity.ConnectionClass;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import shopLogic.Payment;
-
-
-import java.sql.Connection;
+import javafx.scene.control.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
 
 
 public class CashierModeController {
     @FXML
-    private Button findGoodByCodeBtn;
+    private Button findGoodByCodeBtn, makePayment;
     @FXML
-    private TextField codeField;
+    private Label sumLabel;
     @FXML
-    private Button addToSum;
-    @FXML
-    private Label currentGood, sumLabel;
+    private TextArea receiptArea;
 
+    private ArrayList<String> arrayOfGoods = new ArrayList<String>();
+    private int currentSum;
+    private String cardnumber;
+    private int idPayment;
+    //public ConnectionClass connection;
+
+    public void setCardnumber(String cardnumber){
+        this.cardnumber = cardnumber;
+    }
+
+    public String getCardnumber(){
+        return cardnumber;
+    }
+
+    public void setIdPayment(int idPayment){
+        this.idPayment = idPayment;
+    }
+
+    public int getIdPayment(){
+        return this.idPayment;
+    }
+
+    public void addNewGood(String name_good){
+        this.arrayOfGoods.add(name_good);
+    }
+    public Integer getCurrentSum(){
+        return currentSum;
+    }
+    public void updateSum(int price){
+        this.currentSum = this.currentSum + price;
+    }
 
     public void findGoodBtnClick(javafx.event.ActionEvent event){
-        String code  = codeField.getText();
-        int id = 0;
-        String name = "";
-        Integer price = 0;
-        Payment payment = new Payment();
-//        Pane pane = new Pane();
-//        Label lbl = new javafx.scene.control.Label(code);
-//        pane.getChildren().addAll(lbl);
-//        Scene scene =   new Scene(pane);
-//        Stage stage = new Stage();
-//        stage.setScene(scene);
-//        stage.show();
+
+        TextInputDialog input = new TextInputDialog();
+        input.showAndWait();
+        String code = input.getEditor().getText();
+        int id_good;
+        String name_good;
+        int price;
         try{
             ConnectionClass connection = new ConnectionClass();
             String sql = "select id_good, gname, gprice from goods where GVENDOR_CODE =" + code + ";";
             ResultSet res = connection.execQuery(sql);
 
-            if (res.next()){
-            id = res.getInt(1);
-            name = res.getString(2);
+            if(res.next()){
+            id_good = res.getInt(1);
+            name_good = res.getString(2);
             price = res.getInt(3);
-            currentGood.setText(name);
-            //payment.addToArrayOfGoods(name, price);
-            //sumLabel.setText(payment.getCurrentSum().toString());
+
+            makeTheNewReceipt();
+
+            String sqlId = "Select max(payment_id) from history_payments;";
+            ResultSet resId = connection.execQuery(sqlId);
+            resId.next();
+            setIdPayment(resId.getInt(1));
+            addToAssist(id_good, getIdPayment());
+
+             addNewGood(name_good);
+             updateSum(price);
+             sumLabel.setText(getCurrentSum().toString());
+             receiptArea.appendText(name_good + "..." + price +'\n');
+
             }
             else{
-                currentGood.setText("Товар с таким артикулом не найден!");
+                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                 alert.setTitle("Ошибка");
+                 alert.setHeaderText(" ");
+                 alert.setContentText("Товар с таким артикулом не найден.");
+                 alert.show();
             }
-
         }catch (SQLException e){
             e.printStackTrace();
         }
 
     }
+
+    public void makePaymentBtn(javafx.event.ActionEvent event) throws SQLException {
+        //makeTheNewReceipt(Integer.parseInt(sumLabel.getText()), getCardnumber());
+        updateReceipt();
+        setCardnumber("0");
+        setIdPayment(0);
+        sumLabel.setText("");
+        receiptArea.clear();
+    }
+
+    public void makeTheNewReceipt(int sum, String cardnumber) throws SQLException {
+        ConnectionClass connection = new ConnectionClass();
+        String sql3 = "Insert into history_payments(cardnumber, price) values(" + cardnumber + "," + sum +");";
+        connection.execUpdate(sql3);
+    }
+
+    public void makeTheNewReceipt() throws SQLException {
+        ConnectionClass connection = new ConnectionClass();
+        String sql3 = "Insert into history_payments(price, cardnumber) values(0, 1);";
+        connection.execUpdate(sql3);
+    }
+
+    public void updateReceipt() throws SQLException {
+        ConnectionClass connection = new ConnectionClass();
+        String sql = "Update history_payments set price = " + this.currentSum + " where payment_id =" + idPayment +";";
+        connection.execUpdate(sql);
+    }
+
+    public void addToAssist(int id_good, int id_payment) throws SQLException {
+        ConnectionClass connection = new ConnectionClass();
+        String sql2 = "Insert into assistTable(id_good, payment_id) values(" + id_good + "," + id_payment + ");";
+        connection.execUpdate(sql2);
+    }
+
+    public void setCardnumBtn(ActionEvent event){
+        TextInputDialog setCard = new TextInputDialog();
+        setCard.showAndWait();
+        String cardnum = setCard.getEditor().getText();
+        setCardnumber(cardnum);
+    }
+
 
 }

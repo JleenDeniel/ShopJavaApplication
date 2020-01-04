@@ -23,6 +23,11 @@ public class ConnectionClass {
         return res;
     }
 
+    public void  execUpdate(String sql) throws SQLException{
+        Statement statement = this.connection.createStatement();
+        statement.executeUpdate(sql);
+    }
+
     public void addToStaff(String SNAME, String SURNAME, String EMAIL, String SPOSITION, int SACCESS_LVL,
                            int SALARY, String DATE, String PASSWORD) throws SQLException {
         String sql = "{CALL ADDTOSTAFF(?,?,?,?,?,?,?,?)}";
@@ -64,6 +69,9 @@ public class ConnectionClass {
         }else {
             return -1;
         }
+    }
+     public void closeConnection() throws SQLException {
+        connection.close();
     }
 
 
