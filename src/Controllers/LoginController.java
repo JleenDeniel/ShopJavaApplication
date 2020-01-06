@@ -48,6 +48,7 @@ public class LoginController {
                 case 2:{
                     stage.close();
                     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/cashierMode.fxml")));
+                    stage.setResizable(false);
                     stage.setScene(scene);
                 }
 

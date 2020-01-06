@@ -2,8 +2,16 @@ package Controllers;
 
 import connectivity.ConnectionClass;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,18 +25,22 @@ public class CashierModeController {
     private Label sumLabel;
     @FXML
     private TextArea receiptArea;
+    @FXML
+    private MenuBar menuBar;
+    @FXML
+    private MenuItem storageModeBtn;
 
     private ArrayList<String> arrayOfGoods = new ArrayList<String>();
     private int currentSum;
-    private String cardnumber;
+    private int cardnumber;
     private int idPayment;
 
 
-    public void setCardnumber(String cardnumber){
+    public void setCardnumber(int cardnumber){
         this.cardnumber = cardnumber;
     }
 
-    public String getCardnumber(){
+    public int getCardnumber(){
         return cardnumber;
     }
 
@@ -85,7 +97,7 @@ public class CashierModeController {
              addNewGood(name_good);
              updateSum(price);
              sumLabel.setText(getCurrentSum().toString());
-             receiptArea.appendText(name_good + "..." + price +'\n');
+             receiptArea.appendText(name_good + "—" + price + " руб" + '\n');
 
             }
             else{
@@ -107,7 +119,7 @@ public class CashierModeController {
 
         if(option.get() == ButtonType.OK){
             updateReceipt();
-            setCardnumber("0");
+            setCardnumber(0);
             setIdPayment(0);
             setCurrentSum(0);
             sumLabel.setText("");
@@ -131,28 +143,73 @@ public class CashierModeController {
     public void updateReceipt() throws SQLException {
         ConnectionClass connection = new ConnectionClass();
         String sql = "";
-        if(getCardnumber().equals("0")) {
-            sql = "Update history_payments set price = " + getCurrentSum() + " where payment_id =" + getIdPayment() + ";";
+        try {
+            if (getCardnumber() > 0) {
+                sql = "Update history_payments set price = " + getCurrentSum() + " where payment_id =" + getIdPayment() + ";";
+            } else {
+                sql = "Update history_payments set price = " + getCurrentSum() +
+                        ", cardnumber =" + getCardnumber() + " where payment_id =" + getIdPayment() + ";";
+            }
+
+        }catch (NullPointerException e){
+            System.out.println("All right, cardnumber is null");
+        }finally {
+            connection.execUpdate(sql);
         }
-        else {
-            sql = "Update history_payments set price = " + getCurrentSum() +
-                    ", cardnumber =" + getCardnumber() + " where payment_id =" + getIdPayment() + ";";
-        }
-        connection.execUpdate(sql);
     }
 
     public void addToAssist(int id_good, int id_payment) throws SQLException {
         ConnectionClass connection = new ConnectionClass();
         String sql2 = "Insert into assistTable(id_good, payment_id) values(" + id_good + "," + id_payment + ");";
+        String sql3 = "Update goods set gquaintity = gquaintity - 1 where id_good=" + id_good+  ";";
         connection.execUpdate(sql2);
+        connection.execUpdate(sql3);
     }
 
-    public void setCardnumBtn(ActionEvent event){
-        TextInputDialog setCard = new TextInputDialog();
-        setCard.showAndWait();
-        String cardnum = setCard.getEditor().getText();
-        setCardnumber(cardnum);
+    public void cardnumBtn(ActionEvent event){
+        Stage stage = new Stage();
+        GridPane pane = new GridPane();
+        TextField cardInput = new TextField();
+        Label outputLabel = new Label("");
+        pane.add(cardInput, 1, 0);
+        pane.add(outputLabel, 1, 1);
+        Button searchBtn = new Button("Найти карту");
+        pane.add(searchBtn, 1, 2);
+        Scene scene = new Scene(pane);
+        stage.setScene(scene);
+        stage.show();
+
+        searchBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try{
+                    ConnectionClass connection = new ConnectionClass();
+                    String sql = "select buyers.BUYER_ID from buyers where buyers.BCARDNUMBER = "+ cardInput.getText() +";";
+                    ResultSet res = connection.execQuery(sql);
+                    if(res.next()){
+                        outputLabel.setText("Карта найдена");
+                        setCardnumber(res.getInt(1));
+                        stage.close();
+
+                    }else {
+                        outputLabel.setText("Карта не найдена");
+                        cardInput.clear();
+                    }
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
+    public void storageModeBtn(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/storageMode.fxml")));
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
+
+    }
 
 }
