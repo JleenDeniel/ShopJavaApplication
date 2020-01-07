@@ -44,16 +44,15 @@ public class ConnectionClass {
     }
 
     public ResultSet addToGoods(String GNAME, String GPRICE, String GVENDOR_CODE,
-                           String GEXPIRE_DATE, String GPLACE, int GQUAINTITY, int GTYPE) throws SQLException {
-        String sql = "{CALL ADDTOGOODS(?, ?, ?, ?, ?, ?, ?)}";
+                            String GPLACE, int GQUAINTITY, int GTYPE) throws SQLException {
+        String sql = "{CALL ADDTOGOODS(?, ?, ?, ?, ?, ?)}";
         CallableStatement callableStatement = connection.prepareCall(sql);
         callableStatement.setString(1, GNAME);
         callableStatement.setString(2, GPRICE);
         callableStatement.setString(3, GVENDOR_CODE);
-        callableStatement.setDate(4, Date.valueOf(GEXPIRE_DATE));
-        callableStatement.setString(5, GPLACE);
-        callableStatement.setInt(6, GQUAINTITY);
-        callableStatement.setInt(7, GTYPE);
+        callableStatement.setString(4, GPLACE);
+        callableStatement.setInt(5, GQUAINTITY);
+        callableStatement.setInt(6, GTYPE);
         ResultSet res = callableStatement.executeQuery();
         return res;
     }

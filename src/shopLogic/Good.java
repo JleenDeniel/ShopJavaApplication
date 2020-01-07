@@ -16,10 +16,9 @@ public class Good {
     private Integer goodType;
 
 
-    public Good(String goodName, String goodPrice, String goodExpireDate, String goodCode, String goodPlace, Integer goodQuantity, Integer goodType) {
+    public Good(String goodName, String goodPrice, String goodCode, String goodPlace, Integer goodQuantity, Integer goodType) {
         this.goodName = goodName;
         this.goodPrice = goodPrice;
-        this.goodExpireDate = goodExpireDate;
         this.goodCode = goodCode;
         this.goodPlace = goodPlace;
         this.goodQuantity = goodQuantity;

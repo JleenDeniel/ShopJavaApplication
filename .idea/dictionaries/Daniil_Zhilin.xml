@@ -4,9 +4,12 @@
       <w>bcardnumber</w>
       <w>cardnum</w>
       <w>cardnumber</w>
+      <w>choosed</w>
       <w>gname</w>
+      <w>goodname</w>
       <w>gprice</w>
       <w>gvendor</w>
+      <w>quaintity</w>
     </words>
   </dictionary>
 </component>

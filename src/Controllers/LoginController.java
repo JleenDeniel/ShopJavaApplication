@@ -43,11 +43,19 @@ public class LoginController {
             switch (accessLvl){
                 case 1:{
                     stage.close();
-                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/")));
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/storageMode.fxml")));
+                    stage.setResizable(false);
+                    stage.setScene(scene);
                 }
                 case 2:{
                     stage.close();
                     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/cashierMode.fxml")));
+                    stage.setResizable(false);
+                    stage.setScene(scene);
+                }
+                case 3:{
+                    stage.close();
+                    Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/Chooser.fxml")));
                     stage.setResizable(false);
                     stage.setScene(scene);
                 }

@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="191.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="221.0" prefWidth="344.0" style="-fx-background-color: #0C39FF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ChooserController">
    <children>
-      <ChoiceBox fx:id="choiсeOfMode" layoutX="94.0" layoutY="110.0" prefHeight="25.0" prefWidth="166.0">
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor></ChoiceBox>
-      <Label alignment="CENTER" layoutX="61.0" layoutY="64.0" prefHeight="31.0" prefWidth="231.0" text="Выберите режим работы с бд" />
+      <Label alignment="CENTER" layoutX="61.0" layoutY="64.0" prefHeight="31.0" prefWidth="231.0" text="Выберите режим работы с бд" textFill="WHITE">
+         <font>
+            <Font name="Segoe UI" size="15.0" />
+         </font></Label>
       <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="344.0">
         <menus>
           <Menu mnemonicParsing="false" text="Аккаунт">
@@ -29,5 +29,11 @@
           </Menu>
         </menus>
       </MenuBar>
+      <ComboBox fx:id="modeBox" layoutX="81.0" layoutY="105.0" prefHeight="31.0" prefWidth="187.0" promptText="Выбор есть..." />
+      <Button fx:id="chooseModeBtn" layoutX="83.0" layoutY="151.0" mnemonicParsing="false" onAction="#chooseModeClick" prefHeight="31.0" prefWidth="187.0" style="-fx-background-color: #2d05f4; -fx-border-color: #FFFF;" text="Войти" textFill="#f8f8f8">
+         <font>
+            <Font name="Segoe UI" size="16.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

@@ -6,24 +6,21 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import connectivity.ConnectionClass;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.util.Callback;
+
 import shopLogic.Good;
 
 /**
@@ -31,13 +28,10 @@ import shopLogic.Good;
  *
  */
 public class StorageModeController implements Initializable {
-//todo https://devcolibri.com/javafx-2-%D0%BA%D0%B0%D0%BA-%D0%B2%D1%8B%D0%B2%D0%B5%D1%81%D1%82%D0%B8-%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5-%D0%B2-tableview/
     @FXML
     private TextField goodnameField;
     @FXML
     private TextField goodPriceField;
-    @FXML
-    private DatePicker goodExpireDatePicker;
     @FXML
     private TextField goodCode;
     @FXML
@@ -50,8 +44,6 @@ public class StorageModeController implements Initializable {
     @FXML
     private TableColumn<Good, Integer> quaintityCol, typeCol;
 
-    @FXML
-    private Button btnSave;
     @FXML
     private ComboBox<String> goodTypeBox;
     @FXML
@@ -78,7 +70,6 @@ public class StorageModeController implements Initializable {
 
         nameCol.setCellValueFactory(new PropertyValueFactory<Good, String >("goodName"));
         priceCol.setCellValueFactory(new PropertyValueFactory<Good, String >("goodPrice"));
-        expireCol.setCellValueFactory(new PropertyValueFactory<Good, String >("goodExpireDate"));
         codeCol.setCellValueFactory(new PropertyValueFactory<Good, String >("goodCode"));
         placeCol.setCellValueFactory(new PropertyValueFactory<Good, String >("goodPlace"));
         quaintityCol.setCellValueFactory(new PropertyValueFactory<Good, Integer>("goodQuantity"));
@@ -89,7 +80,7 @@ public class StorageModeController implements Initializable {
     @FXML
     private void HandleEvents(MouseEvent event) {
         //check if not empty
-        if (goodCode.getText().isEmpty() || goodnameField.getText().isEmpty() || goodPriceField.getText().isEmpty() || goodExpireDatePicker.getValue().equals(null)) {
+        if (goodCode.getText().isEmpty() || goodnameField.getText().isEmpty() || goodPriceField.getText().isEmpty()) {
             lblStatus.setTextFill(Color.TOMATO);
             lblStatus.setText("Enter all details");
         } else {
@@ -109,8 +100,12 @@ public class StorageModeController implements Initializable {
     private String saveData() {
 
         try {
-            connection.addToGoods(goodnameField.getText(), goodPriceField.getText(), setDateForConnector(goodExpireDatePicker.getValue().toString()), goodCode.getText(),
+
+            connection.addToGoods(goodnameField.getText(), goodPriceField.getText(), goodCode.getText(),
                     goodPlaceField.getText(), Integer.parseInt(goodQuantityField.getText()), Integer.parseInt(goodTypeBox.getValue()));
+            storage.add(new Good(goodnameField.getText(), goodPriceField.getText(), goodCode.getText(),
+                    goodPlaceField.getText(), Integer.parseInt(goodQuantityField.getText()), Integer.parseInt(goodTypeBox.getValue())));
+            initData();
 
             lblStatus.setTextFill(Color.GREEN);
             lblStatus.setText("Added Successfully");
@@ -133,8 +128,8 @@ public class StorageModeController implements Initializable {
         try {
             ResultSet res = connection.execQuery(SQL);
             while(res.next()){
-                storage.add(new Good(res.getString(2), res.getString(3), res.getString(4),
-                        res.getString(5), res.getString(6), res.getInt(7), res.getInt(8)));
+                storage.add(new Good(res.getString(2), res.getString(3),
+                        res.getString(4), res.getString(5), res.getInt(6), res.getInt(7)));
             }
 
         } catch (Exception e) {

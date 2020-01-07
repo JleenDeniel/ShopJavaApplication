@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -32,15 +31,14 @@
                         <Font name="Segoe UI" size="12.0" />
                     </font>
                 </Label>
-                <TextField fx:id="goodnameField" layoutX="76.0" layoutY="121.0" prefHeight="32.0" prefWidth="278.0" promptText="Название товара" />
-                <TextField fx:id="goodPriceField" layoutX="75.0" layoutY="164.0" prefHeight="32.0" prefWidth="278.0" promptText="Цена" />
-                <TextField fx:id="goodCode" layoutX="75.0" layoutY="250.0" prefHeight="32.0" prefWidth="278.0" promptText="Артикул" />
-                <DatePicker fx:id="goodExpireDatePicker" layoutX="75.0" layoutY="206.0" prefHeight="32.0" prefWidth="278.0" promptText="Срок годности" />
+                <TextField fx:id="goodnameField" layoutX="76.0" layoutY="128.0" prefHeight="32.0" prefWidth="278.0" promptText="Название товара" />
+                <TextField fx:id="goodPriceField" layoutX="75.0" layoutY="175.0" prefHeight="32.0" prefWidth="278.0" promptText="Цена" />
+                <TextField fx:id="goodCode" layoutX="75.0" layoutY="229.0" prefHeight="32.0" prefWidth="278.0" promptText="Артикул" />
                 <Button fx:id="btnSave" layoutX="75.0" layoutY="477.0" mnemonicParsing="false" onMouseClicked="#HandleEvents" prefHeight="32.0" prefWidth="278.0" styleClass="button2" stylesheets="@../styling/fullpackstyling.css" text="Добавить" />
-                <ComboBox fx:id="goodTypeBox" editable="true" layoutX="75.0" layoutY="379.0" prefHeight="32.0" prefWidth="278.0" promptText="Тип товара">
+                <ComboBox fx:id="goodTypeBox" editable="true" layoutX="75.0" layoutY="372.0" prefHeight="32.0" prefWidth="278.0" promptText="Тип товара">
                 </ComboBox>
-            <TextField fx:id="goodPlaceField" layoutX="75.0" layoutY="292.0" prefHeight="32.0" prefWidth="278.0" promptText="Местоположение" />
-            <TextField fx:id="goodQuantityField" layoutX="76.0" layoutY="337.0" prefHeight="32.0" prefWidth="278.0" promptText="Количество" />
+            <TextField fx:id="goodPlaceField" layoutX="76.0" layoutY="275.0" prefHeight="32.0" prefWidth="278.0" promptText="Местоположение" />
+            <TextField fx:id="goodQuantityField" layoutX="76.0" layoutY="322.0" prefHeight="32.0" prefWidth="278.0" promptText="Количество" />
             </children>
         </Pane>
         <TableView fx:id="tblData" layoutX="438.0" layoutY="71.0" prefHeight="488.0" prefWidth="651.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="438.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="71.0">
@@ -50,7 +48,6 @@
          <columns>
             <TableColumn fx:id="nameCol" prefWidth="385.0" text="Название" />
             <TableColumn fx:id="priceCol" prefWidth="75.0" text="Цена" />
-            <TableColumn fx:id="expireCol" prefWidth="75.0" text="Срок годности" />
             <TableColumn fx:id="codeCol" prefWidth="75.0" text="Артикул" />
             <TableColumn fx:id="placeCol" prefWidth="103.0" text="Местоположение" />
             <TableColumn fx:id="quaintityCol" prefWidth="183.0" text="Количество" />
