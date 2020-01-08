@@ -62,7 +62,7 @@ public class LoginController {
 
 
                 default:
-                    statusLabel.setText("В базе данных какое то чучело с неизвестным мне уровнем доступа");
+                    statusLabel.setText("В базе данных что то неизвестное с неизвестным мне уровнем доступа");
 
             }
 

@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -75,8 +74,9 @@ public class CashierModeController {
         int price;
         try{
             ConnectionClass connection = new ConnectionClass();
-            String sql = "select id_good, gname, gprice from goods where GVENDOR_CODE =" + code + ";";
-            ResultSet res = connection.execQuery(sql);
+            //String sql = "select id_good, gname, gprice from goods where GVENDOR_CODE =" + code + ";";
+            ResultSet res = connection.getReceiptView(code);
+
 
             if(res.next()){
             id_good = res.getInt(1);

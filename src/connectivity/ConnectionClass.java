@@ -69,6 +69,13 @@ public class ConnectionClass {
             return -1;
         }
     }
+    public ResultSet getReceiptView(String code) throws SQLException {
+        String sql = "SELECT * FROM receipt_view where GVENDOR_CODE ="+ code +  ";";
+        Statement statement = connection.createStatement();
+        ResultSet res = statement.executeQuery(sql);
+        return res;
+    }
+
      public void closeConnection() throws SQLException {
         connection.close();
     }
