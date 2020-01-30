@@ -1,0 +1,24 @@
+TODO:
+ загуглить, зачем нужны вьюшки и триггеры и понять где их можно использовать у меня
+ попровить ввод карты покупателя
+ поправить внешку, ВОЗМОЖНО разобраться со стилями и добавить их
+ возможно сделать вкладки вместо кучи окон
+
+
+select id_good, gname, gprice from goods where GVENDOR_CODE =" + code + "; //select the table
+Select max(payment_id) from history_payments; // setting the payment_id
+Insert into history_payments(price, cardnumber) values(0, 1); // makeTheNewReceipt();
+
+if(!makeReceiptBtn){
+    //addToAssist();
+    Insert into assistTable(id_good, payment_id) values(" + id_good + "," + id_payment + ");
+    Update goods set gquaintity = gquaintity - 1 where id_good=" + id_good+  ";
+}else{
+    if (getCardnumber() > 0) {
+                    sql = "Update history_payments set price = " + getCurrentSum() + " where payment_id =" + getIdPayment() + ";";
+                } else {
+                    sql = "Update history_payments set price = " + getCurrentSum() +
+                            ", cardnumber =" + getCardnumber() + " where payment_id =" + getIdPayment() + ";";
+                }
+}
+
