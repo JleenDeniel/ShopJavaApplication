@@ -8,7 +8,7 @@ import java.sql.*;
 public class ConnectionClass {
     private String url = "jdbc:mysql://localhost/shop?serverTimezone=Europe/Moscow&useSSL=false";
     private String user = "root";
-    private String password = "1T0bms93g5gK";
+    private String password = "";
     private Connection connection;
     private User currentUser;
 
